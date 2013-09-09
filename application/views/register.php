@@ -8,6 +8,7 @@
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$(".user_function").addClass("active");
 			$('#register').submit(function(){
 				$.post(
 					$(this).attr('action'), $(this).serialize(), function(data){
@@ -21,22 +22,8 @@
 </head>
 <body>
 	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-			  	<ul class="nav navbar-nav">
-					<li><img src="/assets/images/lucy_doctor.jpeg" width="50px" /></li>
-					<li><a href="/">Home</a></li>
-					<li><a href="/main/about">About</a></li>
-					<li><a href="/worksheets/all_topics">Worksheets</a></li>
-					<?php if (isset($this->session->userdata('user')->id))
-					 echo '<li><a href="/user/worksheets/view_saved/'. $this->session->userdata('user')->id.'">Saved Worksheets</a></li>';?>
-		    	</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="/user/register">Log In</a></li>
-				</ul>
-				</ul>
-			</div>
-		</nav>
+		<?php include_once('include/nav_bar.php');?>
+		
 		<h1>Registration</h1>
 
 		<form id="register" role="form" action="process_registration" method="post">

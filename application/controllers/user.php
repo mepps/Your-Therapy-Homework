@@ -1,6 +1,8 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
 
-class User extends CI_Controller {
+require_once('main.php');
+
+class User extends Main {
 
 	public function __construct()
 	{

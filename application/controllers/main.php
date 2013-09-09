@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller {
-	public $view_data;
+	// protected $view_data = array();
 
 	public function __construct()
 	{
@@ -9,6 +9,13 @@ class Main extends CI_Controller {
 		$this->load->model('Worksheets_model');
 
 	}
+	// public function display_things()
+	// {
+	//     $things = "some things";
+	//     $this->view_data['things'] = $hings;
+
+	//     $this->load->view('some_view', $this->view_data);
+	// }
 
 	public function index()
 	{
@@ -20,6 +27,19 @@ class Main extends CI_Controller {
 	{
 		$this->load->view('about');
 	}
+
+	public function logged_in()
+	{
+		if (isset($this->session->userdata('user')->id))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 }
 
 /* End of file home.php */

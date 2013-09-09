@@ -7,6 +7,8 @@
 	<script src="/assets/js/jquery.min.js"></script>	
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$("#saved_worksheets").addClass("active");
+
 			$('.delete').submit(function(){
 				confirm('Are you sure?');
 				return false;
@@ -16,21 +18,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-			  	<ul class="nav navbar-nav">
-					<li><img src="/assets/images/lucy_doctor.jpeg" width="50px" /></li>
-					<li><a href="/">Home</a></li>
-					<li><a href="/main/about">About</a></li>
-					<li><a href="/worksheets/all_topics">Worksheets</a></li>
-					<li class="active"><a href="">Saved Worksheets</a></li>
-		    	</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="login.php">Log Off</a></li>
-				</ul>
-			</div>
-		</nav>
-
+		<?php include_once('include/nav_bar.php');?>
 		<h1>Saved Worksheets</h1>
 		<table class="table">
 			<thead>
@@ -38,30 +26,28 @@
 					<th>Date</th>
 					<th>Topic</th>
 					<th>Mood</th>
-					<th>Delete</th>
-				</tr>
+					<th>View</th>
+<!-- 					<th>Delete</th>
+ -->				</tr>
 			<thead>
 			<tbody>
+<?php 	foreach ($worksheets as $worksheet)
+{?>
 				<tr>
-					<td>Ex</td>
-					<td>Ex</td>
-					<td>Ex</td>
+					<td><?=$worksheet->created_at?></td>
+					<td><?=$worksheet->topic_name?></td>
+					<td><?=$worksheet->mood?></td>
 					<td>
-						<form class="delete" action="process.php" method="post">
+						<a href="/worksheets/view_saved/<?=$worksheet->id?>">View</a>
+					</td>
+<!-- 					<td>
+						<form class="delete" action="worksheets/delete_worksheet" method="post">
 							<input type="submit" value="Delete?" />
 						<form>
-					</td>
+					</td> -->
 				</tr>
-				<tr>
-					<td>July 22, 2013</td>
-					<td>Addiction</td>
-					<td>Grouchy</td>
-					<td>
-						<form class="delete" action="process.php" method="post">
-							<input type="submit" value="Delete?" />
-						<form>
-					</td>
-				</tr>
+<?
+}?>
 			</tbody> 
 		</table>
 

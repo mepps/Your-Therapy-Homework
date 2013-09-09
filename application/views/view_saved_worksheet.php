@@ -7,24 +7,31 @@
 	<script src="/assets/js/jquery.min.js"></script>	
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#worksheets").addClass("active");
+			$("#saved_worksheets").addClass("active");
+
+			$('.delete').submit(function(){
+				confirm('Are you sure?');
+				return false;
+			});
 		});
 	</script>
 </head>
 <body>
+	<div id="wrapper">
 		<?php include_once('include/nav_bar.php');?>
 
-		<h2>Why did you come here?</h2>
 
-		<p>See below for a list of topics.</p>
-		<ul class="nav nav-tabs navbar-fixed-bottom">
-<?php
-foreach ($topics as $topic)
-{?>
-			<li><a href="/worksheets/worksheet/<?=$topic->id?>"><?=$topic->name?></a></li>
-<?php
-}?>
-		</ul>
+
+		<h2><?=$this->session->userdata('user')->first_name?>, you answered:</h2>
+
+		<?php foreach ($worksheet_answers as $answer)
+		{?>
+
+			<h3><?=$answer->question?> </h3>
+			<p><?=$answer->content?></p>
+
+
+	<?	}?>
 
 	</div><!--closes wrapper-->
 </body>
