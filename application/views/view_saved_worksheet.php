@@ -27,7 +27,7 @@
 		<?php foreach ($worksheet_answers as $answer)
 		{?>
 
-			<h3><?=$answer->question?> </h3>
+			<p><strong><?=$answer->question?> </strong></p>
 			<p><?=$answer->content?></p>
 
 

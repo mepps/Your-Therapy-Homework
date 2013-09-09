@@ -55,25 +55,25 @@ class Users_model extends CI_Model {
 			return false;
 		}
 	}
-	public function save_worksheet()
-	{
+	// public function save_worksheet()
+	// {
 		
-		$this->Worksheets_model->save_worksheet($this->input->post('worksheet_id'));
+	// 	$this->Worksheets_model->save_worksheet($this->input->post('worksheet_id'));
 
-	}
+	// }
 
 
 	public function get_saved_worksheets($user_id)
 	{
 				
-		$query = $this->db->query("SELECT worksheets.id, worksheets.topic_id, worksheets.user_id, worksheets.mood, DATE_FORMAT(worksheets.created_at, '%M %d, %Y') as created_at, topics.name as topic_name FROM worksheets LEFT JOIN topics on worksheets.topic_id=topics.id WHERE user_id=".$user_id." AND saved=1;");
+		$query = $this->db->query("SELECT worksheets.id, worksheets.topic_id, worksheets.user_id, worksheets.mood, DATE_FORMAT(worksheets.created_at, '%M %d, %Y') as created_at, topics.name as topic_name FROM worksheets INNER JOIN topics on worksheets.topic_id=topics.id WHERE user_id=".$user_id." AND saved=1;");
 		return $query->result();
 		
 	}
 
 	public function get_saved_worksheet_by_id($worksheet_id)
 	{
-		$query = $this->db->query("SELECT * from answers LEFT JOIN questions on answers.question_id=questions.id LEFT JOIN questions_has_topics on questions.id=questions_has_topics.question_id WHERE answers.worksheet_id=".$worksheet_id." ORDER BY questions_has_topics.order;");
+		$query = $this->db->query("SELECT * from answers LEFT JOIN questions on answers.question_id=questions.id LEFT JOIN questions_has_topics on questions.id=questions_has_topics.question_id WHERE answers.worksheet_id=".$worksheet_id." GROUP BY answers.id ORDER BY questions_has_topics.order;");
 		return $query->result();
 	}
 
