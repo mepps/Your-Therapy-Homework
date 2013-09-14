@@ -1,6 +1,6 @@
 <?php
 
-class Worksheets_model extends CI_Model {
+class Worksheet_model extends CI_Model {
 
     function __construct()
     {

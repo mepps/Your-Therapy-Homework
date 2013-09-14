@@ -1,44 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Main extends CI_Controller {
-	// protected $view_data = array();
 
 	public function __construct()
 	{
+
 		parent::__construct();
-		$this->load->model('Worksheets_model');
+		$this->load->model('Worksheet_model');
+		if (isset($this->session->userdata('user')->id))
+		{
+			$this->data['logged_in'] = true;
+			if ($this->session->userdata('user')->admin_level==9)
+			{
+				$this->data['admin'] = true;
+			}
+			else
+			{
+				$this->data['admin'] = false;				
+			}
+		}
+		else
+		{
+			$this->data['logged_in'] = false;
+		}
 
 	}
-	// public function display_things()
-	// {
-	//     $things = "some things";
-	//     $this->view_data['things'] = $hings;
-
-	//     $this->load->view('some_view', $this->view_data);
-	// }
 
 	public function index()
 	{
-		$data['topics'] = $this->Worksheets_model->topics;
-		$this->load->view('home', $data);
+
+		$this->data['topics'] = $this->Worksheet_model->topics;
+		$this->load->view('home', $this->data);
 	}
 
 	public function about()
 	{
-		$this->load->view('about');
+		$this->load->view('about', $this->data);
 	}
 
-	public function logged_in()
-	{
-		if (isset($this->session->userdata('user')->id))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
 	
 }
 

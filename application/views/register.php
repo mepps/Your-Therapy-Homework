@@ -13,6 +13,10 @@
 				$.post(
 					$(this).attr('action'), $(this).serialize(), function(data){
 						$('#errors').html("<strong>" + data.errors + "</strong>");
+						if (data.registered == true)
+						{
+							$('.form-control').val("");
+						}
 					}, 'json'
 					);
 				return false;

@@ -1,6 +1,6 @@
 <?php
 
-class Users_model extends CI_Model {
+class User_model extends CI_Model {
 	var $users;
 
     function __construct()
@@ -66,7 +66,7 @@ class Users_model extends CI_Model {
 	public function get_saved_worksheets($user_id)
 	{
 				
-		$query = $this->db->query("SELECT worksheets.id, worksheets.topic_id, worksheets.user_id, worksheets.mood, DATE_FORMAT(worksheets.created_at, '%M %d, %Y') as created_at, topics.name as topic_name FROM worksheets INNER JOIN topics on worksheets.topic_id=topics.id WHERE user_id=".$user_id." AND saved=1;");
+		$query = $this->db->query("SELECT worksheets.id, worksheets.topic_id, worksheets.user_id, worksheets.mood, DATE_FORMAT(worksheets.created_at, '%M %d, %Y') as created_at, topics.name as topic_name FROM worksheets INNER JOIN topics on worksheets.topic_id=topics.id WHERE user_id=".$user_id." AND saved=1 ORDER BY worksheets.created_at DESC;");
 		return $query->result();
 		
 	}

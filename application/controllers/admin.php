@@ -6,16 +6,16 @@ class Admin extends Main {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Worksheets_model');
-		$this->load->model('Users_model');
+		$this->load->model('Worksheet_model');
+		$this->load->model('User_model');
 	}
 
 
 	public function add_topic()
 	{
-		if (isset($this->session->userdata('user')->id) and $this->session->userdata('user')->admin_level==9)
+		if (isset($this->data['logged_in'] and $this->data['admin'])
 		{
-			$this->load->view('add_topic');
+			$this->load->view('add_topic', $this->data);
 		}
 		else
 		{
@@ -34,7 +34,7 @@ class Admin extends Main {
 		}
 		else
 		{
-			$data['id'] = $this->Worksheets_model->insert_topic_get_id();
+			$data['id'] = $this->Worksheet_model->insert_topic_get_id();
 			$data['added'] = true;
 			$data['errors'] = "You have added a new topic! Would you like to add a question to it?";
 		}

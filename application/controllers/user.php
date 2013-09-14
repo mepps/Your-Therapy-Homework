@@ -7,12 +7,12 @@ class User extends Main {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Users_model');
+		$this->load->model('User_model');
 	}
 
 	public function login()
 	{
-		$this->load->view('login');
+		$this->load->view('login', $this->data);
 	}
 
 	public function logoff()
@@ -24,7 +24,7 @@ class User extends Main {
 
 	public function register()
 	{
-		$this->load->view('register');
+		$this->load->view('register', $this->data);
 	}
 
 	public function process_login()
@@ -37,7 +37,7 @@ class User extends Main {
 		}
 		else
 		{
-			$user = $this->Users_model->login_user();
+			$user = $this->User_model->login_user();
 			if ($user==false)
 			{
 				$data['errors'] = "Wrong username or password.";
@@ -65,7 +65,8 @@ class User extends Main {
 		}
 		else
 		{
-			$this->Users_model->register_user();
+			$this->User_model->register_user();
+			$data['registered'] = true;
 			$data['errors'] = "You have successfully registered.";	
 		}
 		echo json_encode($data);

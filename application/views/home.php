@@ -21,6 +21,7 @@
 			<div class="container">
 				<img class="pull-left" src="/assets/images/lucy_doctor.jpeg" width="150px">
 				<h1 class="pull-right">Your Therapy Homework</h1>
+				<div class="clearfix"></div>
 				<div class="btn-group pull-right">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">I need help with... <span class="caret"></span></button>
 				  	<ul class="dropdown-menu" role="menu">
