@@ -77,6 +77,16 @@ class Worksheets extends Main {
 		$this->Worksheet_model->save_worksheet($this->input->post('worksheet_id'));
 
 	}
+	public function delete_worksheet()
+	{
+		$delete = $this->Worksheet_model->delete_worksheet($this->input->post('worksheet_id'));
+		if ($delete)
+		{
+			$data['deleted'] = true;
+			$data['id'] = $this->input->post('worksheet_id');
+		}
+		echo json_encode($data);
+	}
 }
 
 

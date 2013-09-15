@@ -75,6 +75,17 @@ class Worksheet_model extends CI_Model {
       return $response_id;
     }
 
+    public function delete_worksheet($worksheet_id)
+    {
+      $query = $this->db->query("UPDATE worksheets SET `saved`='0' WHERE `id`='".$worksheet_id."';");
+      if ($query)
+        {
+          return true;
+        }
+      else
+          return false;
+    }
+
 	public function insert_topic_get_id()
 	{
 		$new_topic = $this->input->post();
@@ -113,7 +124,15 @@ class Worksheet_model extends CI_Model {
         'order' => $new_question['order']
       );
     $this->db->set($question_topic_data);
-    $this->db->insert('questions_has_topics');
+    $query = $this->db->insert('questions_has_topics');
+    if ($query)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 

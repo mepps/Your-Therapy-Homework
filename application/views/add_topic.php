@@ -11,6 +11,7 @@
 			$('#add_topic').addClass('active');
 			$('#new_question').hide();
 			$('#another_section').hide();
+			$('#finish').hide();
 			$('#new_topic').submit(function(){
 				$.post(
 					$(this).attr('action'), $(this).serialize(), function(data){
@@ -34,7 +35,8 @@
 				$("#order").val(order);
 				$.post(
 					$(this).attr('action'), $(this).serialize(), function(data){
-
+						$('#topic_errors').html('<strong>' + data.errors + '</strong>');
+						console.log(data);
 					}, 'json'
 					);	
 					$("#question").val("");					
@@ -44,6 +46,7 @@
 			});
 			$('#another_section').submit(function(){
 					$(this).hide();
+					$('#finish').show();
 					var order = $("#order").val();
 					order = parseInt(order);
 					order += 10;
@@ -82,12 +85,14 @@
 			<input type="hidden" id="topic_id" name="topic_id" />
 			<input type="submit" class="btn btn-default" value="Add Question" />
 		</form>
+		<br />
 
 		<form id="another_section" role="form" action="/admin/process_add_question" method="post">
 			<p>These questions will go in the initial section.</p>
 			<label>Done with this section?</label><br />
 			<input type="submit" class="btn btn-default" value="Next Section" />
 		</form>
+		<p id="finish">When you're finished, just navigate back to the home page and check out your new section.</p>
 
 
 

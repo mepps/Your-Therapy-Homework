@@ -13,7 +13,7 @@ class Admin extends Main {
 
 	public function add_topic()
 	{
-		if (isset($this->data['logged_in'] and $this->data['admin'])
+		if ($this->data['logged_in'] and $this->data['admin'])
 		{
 			$this->load->view('add_topic', $this->data);
 		}
@@ -43,8 +43,22 @@ class Admin extends Main {
 
 	public function process_add_question()
 	{
-		$this->Worksheets_model->insert_question();
-		echo json_encode("Saved!");
+		$this->form_validation->set_rules('question', 'question', 'required');
+		$this->form_validation->set_rules('keyword', 'key word', 'required');
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['errors'] = validation_errors();
+		}
+		else
+		{	
+			$insert = $this->Worksheet_model->insert_question();
+			if ($insert)
+			{
+				$data['errors'] = "You've added a question!";
+				$data['inserted'] = true;
+			}
+		}
+		echo json_encode($data);
 	}
 
 }

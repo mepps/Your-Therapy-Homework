@@ -5,13 +5,25 @@
 	<title>Your Therapy Homework</title>
 	<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 	<script src="/assets/js/jquery.min.js"></script>	
+	<script src="/assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
+		$(document).ready(function(data){
 			$("#saved_worksheets").addClass("active");
 
 			$('.delete').submit(function(){
-				confirm('Are you sure?');
+				// confirm = confirm('Are you sure?');
+
+					$.post(
+						$(this).attr('action'), $(this).serialize(), function(data)
+						{
+							if (data.deleted == true)
+								{
+									var selector = "#" + data.id;
+									$("tr" + selector).remove();
+								}
+						}, "json");
 				return false;
+
 			});
 		});
 	</script>
@@ -27,24 +39,25 @@
 					<th>Topic</th>
 					<th>Mood</th>
 					<th>View</th>
-<!-- 					<th>Delete</th>
- -->				</tr>
-			<thead>
+					<th>Delete</th>
+				</tr>
+			</thead>
 			<tbody>
 <?php 	foreach ($worksheets as $worksheet)
 {?>
-				<tr>
+				<tr id=<?=$worksheet->id?>>
 					<td><?=$worksheet->created_at?></td>
 					<td><?=$worksheet->topic_name?></td>
 					<td><?=$worksheet->mood?></td>
 					<td>
 						<a href="/worksheets/view_saved/<?=$worksheet->id?>">View</a>
 					</td>
-<!-- 					<td>
-						<form class="delete" action="worksheets/delete_worksheet" method="post">
+					<td>
+						<form class="delete" action="/worksheets/delete_worksheet" method="post">
+							<input type="hidden" name="worksheet_id" value=<?=$worksheet->id?>>
 							<input type="submit" value="Delete?" />
-						<form>
-					</td> -->
+						</form>
+					</td>
 				</tr>
 <?
 }?>
