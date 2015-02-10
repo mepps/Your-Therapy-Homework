@@ -7,6 +7,7 @@ class Main extends CI_Controller {
 
 		parent::__construct();
 		$this->load->model('Worksheet_model');
+		$this->data['logged_in'] = false;
 		if (isset($this->session->userdata('user')->id))
 		{
 			$this->data['logged_in'] = true;
@@ -16,11 +17,6 @@ class Main extends CI_Controller {
 				$this->data['admin'] = true;
 			}
 		}
-		else
-		{
-			$this->data['logged_in'] = false;
-		}
-
 	}
 
 	public function index()
