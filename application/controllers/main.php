@@ -10,13 +10,10 @@ class Main extends CI_Controller {
 		if (isset($this->session->userdata('user')->id))
 		{
 			$this->data['logged_in'] = true;
+			$this->data['admin'] = false;
 			if ($this->session->userdata('user')->admin_level==9)
 			{
 				$this->data['admin'] = true;
-			}
-			else
-			{
-				$this->data['admin'] = false;				
 			}
 		}
 		else
